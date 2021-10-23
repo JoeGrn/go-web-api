@@ -1,8 +1,8 @@
 {
-  "name": "go-web-api",
+  "name": "infra",
   "version": "0.1.0",
   "bin": {
-    "go-web-api": "bin/go-web-api.js"
+    "infra": "bin/infra.js"
   },
   "scripts": {
     "build": "tsc",
