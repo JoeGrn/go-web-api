@@ -25,6 +25,12 @@ func TestHandler(t *testing.T) {
 			},
 			err: "",
 		},
+		{
+			desc:     "Failure",
+			request:  events.APIGatewayProxyRequest{Body: ""},
+			response: events.APIGatewayProxyResponse{},
+			err:      "No name provided in the request body",
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
