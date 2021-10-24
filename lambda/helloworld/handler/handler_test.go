@@ -48,7 +48,7 @@ func TestHandler(t *testing.T) {
 				return
 			}
 			if !reflect.DeepEqual(got, tC.response) {
-				t.Errorf("Expected account of \n%+v but got \n%+v", tC.response, got)
+				t.Errorf("Expected string of \n%+v but got \n%+v", tC.response, got)
 			}
 		})
 	}
