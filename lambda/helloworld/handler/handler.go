@@ -2,26 +2,23 @@ package handler
 
 import (
 	"context"
-	"fmt"
+	"errors"
+	"log"
+
+	"github.com/aws/aws-lambda-go/events"
 )
 
-type Event struct {
-	Name string `json:"name"`
-}
+func Handle(ctx context.Context, event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-type Response struct {
-	StatusCode int               `json:"statusCode"`
-	Headers    map[string]string `json:"headers"`
-	Body       string            `json:"body"`
-}
+	log.Printf("Processing Lambda request %s\n", event.RequestContext.RequestID)
 
-func Handle(ctx context.Context, event Event) (Response, error) {
-	responseBody := fmt.Sprintf("Hello %s!", event.Name)
-	response := Response{
-		StatusCode: 200,
-		Headers:    map[string]string{"Content-Type": "application/json"},
-		Body:       responseBody,
+	if len(event.Body) < 1 {
+		return events.APIGatewayProxyResponse{}, errors.New("No name provided in the request body")
 	}
 
-	return response, nil
+	return events.APIGatewayProxyResponse{
+		StatusCode: 200,
+		Headers:    map[string]string{"Content-Type": "application/json"},
+		Body:       "Hello " + event.Body + "!",
+	}, nil
 }
